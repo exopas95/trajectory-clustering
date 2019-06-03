@@ -40,6 +40,7 @@ for(file in file_list){
       newTemp <- newTemp %>% filter(newTemp$ele < 67 | newTemp$lat>37.24481 | newTemp$lat <37.243981 | newTemp$lon >127.076936 | newTemp$lon <127.075835) 
       
       ### 시간좌표 전처리 tzone 기능사용 ###
+      newTemp$time<- as.POSIXct(newTemp$time)
       attributes(newTemp$time)$tzone <- "Asia/Seoul"
       newTemp$month <- as.numeric(format(newTemp$time, '%m'))
       newTemp$day <- as.numeric(format(newtemp$time, '%d'))

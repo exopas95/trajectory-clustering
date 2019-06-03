@@ -97,20 +97,16 @@ def getLineFromPoints(points, startingPoint):
 for i in range(1, 6):
     df = pd.read_csv('C:\\Users\\cross\\Desktop\\DM\\NewDataset\\dataset' + str(i) + '.csv', index_col = False, header=0)
     superMap = folium.Map(location=[37.242837, 127.080046], zoom_start=20, tiles='OpenStreetMap')
-#drawPointsOnMap(superMap, df.values, '#3186cc', 0.1)
+    #drawPointsOnMap(superMap, df.values, '#3186cc', 0.1)
 
-#df = pd.read_csv('locations.csv', index_col = False, header=0)
-#superMap = folium.Map(location=[51.107885, 17.038538], zoom_start=14, tiles='OpenStreetMap')
-#drawPointsOnMap(superMap, df.values, '#3186cc', 20)    
-
-    clustersCenters = getDbScanClustersCenters(df, 0.01, 2)
+    clustersCenters = getDbScanClustersCenters(df, 0.002, 0.1)
     drawPointsOnMap(superMap, clustersCenters, '#ff0000', 10)
 
     endPoint = getEndPoint(clustersCenters)
-    drawPointsOnMap(superMap, [endPoint], '#3186cc', 15)
+    drawPointsOnMap(superMap, [endPoint], '#3186cc', 1)
     line = getLineFromPoints(clustersCenters, endPoint)
 
-    superMap.add_child(folium.PolyLine(locations = line, weight = 5, color="#d63b3b", ))
+    superMap.add_child(folium.PolyLine(locations = line, weight = 2, color="#d63b3b", ))
     
     if(i == 1):
         superMap.save('C:\\Users\\cross\\Desktop\\DM\\ClusteringResults\\Monday.html')

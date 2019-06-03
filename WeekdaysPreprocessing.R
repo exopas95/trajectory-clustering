@@ -41,54 +41,43 @@ for(file in file_list){
       temp <- rename(temp, ele = Elevation)
       temp <- rename(temp, time = Timestamp)
       newTemp <- select(temp,c(lat,lon, ele, time))
-      
-      ### 흡연장의 고도 : 84~85 ### 
-      ###공대의 1층 고도 : 89~90 ###
-      ###멀관의 2층 고도 :68.09(평균산출 결과) -> 멀관 1층은 66정도? ###
-      ###우정원의 층의 고도 : 74이하 ###
-      #교외/멀관/공대 제외하는 코드
-      newTemp <- newTemp %>% filter(newTemp$lat<=37.2480, newTemp$lat>= 37.2380 & newTemp$lon <=127.086,newTemp$lon>=127.0757 )
-      newTemp <- newTemp %>% filter(newTemp$lat<37.2449 | newTemp$lon<127.07857 | newTemp$ele<85)
-      newTemp <- newTemp %>% filter(newTemp$ele < 67 | newTemp$lat>37.24481 | newTemp$lat <37.243981 | newTemp$lon >127.076936 | newTemp$lon <127.075835) 
-      
-      ### 시간좌표 전처리 tzone 기능사용 ###
-      newTemp$time<- as.POSIXct(newTemp$time)
-      attributes(newTemp$time)$tzone <- "Asia/Seoul"
-      newTemp$month <- as.numeric(format(newTemp$time, '%m'))
-      newTemp$day <- as.numeric(format(newTemp$time, '%d'))
-      newTemp$hour <- as.numeric(format(newTemp$time, '%H'))
-      newTemp$weekdays <- weekdays.POSIXt(newTemp$time,abbreviate=T)
-      
-      data1 <- newTemp %>% filter(newTemp$weekdays == '월')
-      data2 <- newTemp %>% filter(newTemp$weekdays == '화')
-      data3 <- newTemp %>% filter(newTemp$weekdays == '수')
-      data4 <- newTemp %>% filter(newTemp$weekdays == '목')
-      data5 <- newTemp %>% filter(newTemp$weekdays == '금')
-      
-      FinalData1 <- rbind(FinalData1, data1)
-      FinalData2 <- rbind(FinalData2, data2)
-      FinalData3 <- rbind(FinalData3, data3)
-      FinalData4 <- rbind(FinalData4, data4)
-      FinalData5 <- rbind(FinalData5, data5)
-      
-      #for (items in newTemp){
-      #  if( newTemp$weekdays == '월'){
-      #    data1 <- rbind(data1, newTemp)
-      #  }
-      #  else if(newTemp$weekdays == '화'){
-      #    data2 <- rbind(data2, newTemp)
-      #  }
-      #  else if(newTemp$weekdays == '수'){
-      #    data3 <- rbind(data3, newTemp)
-      #  }
-      #  else if(newTemp$weekdays == '목'){
-      #    data4 <- rbind(data4, newTemp)
-      #  }
-      #  else if(newTemp$weekdays == '금'){
-      #    data5 <- rbind(data5, newTemp)
-      #  }
-      #}
     }
+    else if(name == "lan"){
+      temp <- rename(temp, ele = ns1.ele)
+      temp <- rename(temp, time = ns1.time)
+      newTemp <- select(temp,c(lat,lon, ele, time))
+    }
+      
+    ### 흡연장의 고도 : 84~85 ### 
+    ###공대의 1층 고도 : 89~90 ###
+    ###멀관의 2층 고도 :68.09(평균산출 결과) -> 멀관 1층은 66정도? ###
+    ###우정원의 층의 고도 : 74이하 ###
+    #교외/공대외각/도서관외각/국제학관아래 제외하는 코드
+    newTemp <- newTemp %>% filter(newTemp$lat <= 37.2480, newTemp$lat>= 37.2380 & newTemp$lon <=127.086,newTemp$lon>=127.0757 )
+    newTemp <- newTemp %>% filter(newTemp$lat < 37.242607 | newTemp$lon < 127.081834)
+    newTemp <- newTemp %>% filter(newTemp$lat > 37.240400 | newTemp$lon > 127.079036)
+    newTemp <- newTemp %>% filter(newTemp$lat > 37.240156)
+      
+      
+    ### 시간좌표 전처리 tzone 기능사용 ###
+    newTemp$time<- as.POSIXct(newTemp$time)
+    attributes(newTemp$time)$tzone <- "Asia/Seoul"
+    newTemp$month <- as.numeric(format(newTemp$time, '%m'))
+    newTemp$day <- as.numeric(format(newTemp$time, '%d'))
+    newTemp$hour <- as.numeric(format(newTemp$time, '%H'))
+    newTemp$weekdays <- weekdays.POSIXt(newTemp$time,abbreviate=T)
+      
+    data1 <- newTemp %>% filter(newTemp$weekdays == '월')
+    data2 <- newTemp %>% filter(newTemp$weekdays == '화')
+    data3 <- newTemp %>% filter(newTemp$weekdays == '수')
+    data4 <- newTemp %>% filter(newTemp$weekdays == '목')
+    data5 <- newTemp %>% filter(newTemp$weekdays == '금')
+      
+    FinalData1 <- rbind(FinalData1, data1)
+    FinalData2 <- rbind(FinalData2, data2)
+    FinalData3 <- rbind(FinalData3, data3)
+    FinalData4 <- rbind(FinalData4, data4)
+    FinalData5 <- rbind(FinalData5, data5)
   }
 }
 
@@ -97,6 +86,13 @@ FinalData2 <- FinalData2[-1,]
 FinalData3 <- FinalData3[-1,]
 FinalData4 <- FinalData4[-1,]
 FinalData5 <- FinalData5[-1,]
+
+FinalData1 <- FinalData1 %>% select(lat, lon)
+FinalData2 <- FinalData2 %>% select(lat, lon)
+FinalData3 <- FinalData3 %>% select(lat, lon)
+FinalData4 <- FinalData4 %>% select(lat, lon)
+FinalData5 <- FinalData5 %>% select(lat, lon)
+
 write.csv(FinalData1, paste0("C:/Users/cross/Desktop/DM/NewDataset/dataset1.csv"))
 write.csv(FinalData2, paste0("C:/Users/cross/Desktop/DM/NewDataset/dataset2.csv"))
 write.csv(FinalData3, paste0("C:/Users/cross/Desktop/DM/NewDataset/dataset3.csv"))
