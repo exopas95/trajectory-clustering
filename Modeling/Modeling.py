@@ -95,26 +95,26 @@ def getLineFromPoints(points, startingPoint):
     return line
 
 for i in range(1, 6):
-    df = pd.read_csv('C:\\Users\\cross\\Desktop\\DM\\NewDataset\\dataset' + str(i) + '.csv', index_col = False, header=0)
+    df = pd.read_csv('C:\\Users\\cross\\Desktop\\DM\\NewDatasetB\\dataset' + str(i) + '.csv', index_col = False, header=0)
     superMap = folium.Map(location=[37.242837, 127.080046], zoom_start=20, tiles='OpenStreetMap')
     #drawPointsOnMap(superMap, df.values, '#3186cc', 0.1)
 
-    clustersCenters = getDbScanClustersCenters(df, 0.002, 0.1)
-    drawPointsOnMap(superMap, clustersCenters, '#ff0000', 10)
+    clustersCenters = getDbScanClustersCenters(df, 0.003, 5)
+    #drawPointsOnMap(superMap, clustersCenters, '#ff0000', 1)
 
     endPoint = getEndPoint(clustersCenters)
-    drawPointsOnMap(superMap, [endPoint], '#3186cc', 1)
+    drawPointsOnMap(superMap, [endPoint], '#3186cc', 3)
     line = getLineFromPoints(clustersCenters, endPoint)
 
-    superMap.add_child(folium.PolyLine(locations = line, weight = 2, color="#d63b3b", ))
+    superMap.add_child(folium.PolyLine(locations = line, weight = 5, color="#d63b3b", ))
     
     if(i == 1):
-        superMap.save('C:\\Users\\cross\\Desktop\\DM\\ClusteringResults\\Monday.html')
+        superMap.save('C:\\Users\\cross\\Desktop\\DM\\ClusteringResults\\MondayB_trajectory.html')
     elif(i == 2): 
-        superMap.save('C:\\Users\\cross\\Desktop\\DM\\ClusteringResults\\Tuesday.html')
+        superMap.save('C:\\Users\\cross\\Desktop\\DM\\ClusteringResults\\TuesdayB_trajectory.html')
     elif(i == 3):
-        superMap.save('C:\\Users\\cross\\Desktop\\DM\\ClusteringResults\\Wendsday.html')
+        superMap.save('C:\\Users\\cross\\Desktop\\DM\\ClusteringResults\\WendsdayB_trajectory.html')
     elif(i == 4):
-        superMap.save('C:\\Users\\cross\\Desktop\\DM\\ClusteringResults\\Thursday.html')
+        superMap.save('C:\\Users\\cross\\Desktop\\DM\\ClusteringResults\\ThursdayB_trajectory.html')
     elif(i == 5):
-        superMap.save('C:\\Users\\cross\\Desktop\\DM\\ClusteringResults\\Friday.html')
+        superMap.save('C:\\Users\\cross\\Desktop\\DM\\ClusteringResults\\FridayB_trajectory.html')

@@ -5,7 +5,7 @@ library(dplyr)
 library(readr)
 #setwd(경로설정)
 
-dir <- ("C:/Users/cross/Desktop/DM/Dataset")
+dir <- ("C:/Users/Sewoong/Desktop/Develop/Trajectory-Clustering/DatasetB")
 file_list <- list.files(dir)
 file_list
 lat <- c()
@@ -42,11 +42,12 @@ for(file in file_list){
       temp <- rename(temp, time = Timestamp)
       newTemp <- select(temp,c(lat,lon, ele, time))
     }
-    else if(name == "lan"){
+    if(name == "lan"){
       temp <- rename(temp, ele = ns1.ele)
       temp <- rename(temp, time = ns1.time)
       newTemp <- select(temp,c(lat,lon, ele, time))
     }
+  }
       
     ### 흡연장의 고도 : 84~85 ### 
     ###공대의 1층 고도 : 89~90 ###
@@ -78,7 +79,6 @@ for(file in file_list){
     FinalData3 <- rbind(FinalData3, data3)
     FinalData4 <- rbind(FinalData4, data4)
     FinalData5 <- rbind(FinalData5, data5)
-  }
 }
 
 FinalData1 <- FinalData1[-1,]
@@ -93,9 +93,9 @@ FinalData3 <- FinalData3 %>% select(lat, lon)
 FinalData4 <- FinalData4 %>% select(lat, lon)
 FinalData5 <- FinalData5 %>% select(lat, lon)
 
-write.csv(FinalData1, paste0("C:/Users/cross/Desktop/DM/NewDataset/dataset1.csv"))
-write.csv(FinalData2, paste0("C:/Users/cross/Desktop/DM/NewDataset/dataset2.csv"))
-write.csv(FinalData3, paste0("C:/Users/cross/Desktop/DM/NewDataset/dataset3.csv"))
-write.csv(FinalData4, paste0("C:/Users/cross/Desktop/DM/NewDataset/dataset4.csv"))
-write.csv(FinalData5, paste0("C:/Users/cross/Desktop/DM/NewDataset/dataset5.csv"))
+write.csv(FinalData1, paste0("C:/Users/Sewoong/Desktop/Develop/Trajectory-Clustering/NewDatasetB/dataset1.csv"))
+write.csv(FinalData2, paste0("C:/Users/Sewoong/Desktop/Develop/Trajectory-Clustering/NewDatasetB/dataset2.csv"))
+write.csv(FinalData3, paste0("C:/Users/Sewoong/Desktop/Develop/Trajectory-Clustering/NewDatasetB/dataset3.csv"))
+write.csv(FinalData4, paste0("C:/Users/Sewoong/Desktop/Develop/Trajectory-Clustering/NewDatasetB/dataset4.csv"))
+write.csv(FinalData5, paste0("C:/Users/Sewoong/Desktop/Develop/Trajectory-Clustering/NewDatasetB/dataset5.csv"))
 
