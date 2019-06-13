@@ -113,12 +113,13 @@ for i in range(1, 6):
     
     # 클러스터링된 결과를 저장할 경로를 설정해준다 - 다른 컴퓨터에서 사용할 경우 경로를 수정해주어야 한다.
     if(i == 1):
-        superMap.save('C:\\Users\\Sewoong\\Desktop\\Develop\\Trajectory-Clustering\\ClusteringResults\\MondayA_Trajectory.html')
+        superMap.save('C:\\Users\\cross\\Desktop\\DM\\ClusteringResults\\MondayB_trajectory.html')
     elif(i == 2): 
-        superMap.save('C:\\Users\\Sewoong\\Desktop\\Develop\\Trajectory-Clustering\\ClusteringResults\\TuesdayA_Trajectory.html')
+        superMap.save('C:\\Users\\cross\\Desktop\\DM\\ClusteringResults\\TuesdayB_trajectory.html')
     elif(i == 3):
-        superMap.save('C:\\Users\\Sewoong\\Desktop\\Develop\\Trajectory-Clustering\\ClusteringResults\\WendsdayA_Trajectory.html')
+        superMap.save('C:\\Users\\cross\\Desktop\\DM\\ClusteringResults\\WendsdayB_trajectory.html')
     elif(i == 4):
-        superMap.save('C:\\Users\\Sewoong\\Desktop\\Develop\\Trajectory-Clustering\\ClusteringResults\\ThursdayA_Trajectory.html')
+        superMap.save('C:\\Users\\cross\\Desktop\\DM\\ClusteringResults\\ThursdayB_trajectory.html')
     elif(i == 5):
-        superMap.save('C:\\Users\\Sewoong\\Desktop\\Develop\\Trajectory-Clustering\\ClusteringResults\\FridayA_Trajectory.html')
+        superMap.save('C:\\Users\\cross\\Desktop\\DM\\ClusteringResults\\FridayB_trajectory.html')
+
